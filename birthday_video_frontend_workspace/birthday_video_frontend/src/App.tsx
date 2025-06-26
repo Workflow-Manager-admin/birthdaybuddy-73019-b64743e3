@@ -11,28 +11,37 @@ function getFriendNameFromQuery(search: string): string | null {
 }
 
 // PUBLIC_INTERFACE
+/**
+ * Main SPA App: Implements routing for landing (name input), and video.
+ * Always shows NameForm at '/', and only shows VideoPage at '/video'.
+ */
 const App: React.FC = () => {
   const [friendName, setFriendName] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  // On mount or location/page change, sync name from URL or localStorage
+  // Loads name from query (for /video) or localStorage for prefilling form only.
   useEffect(() => {
-    // 1. Try to load from URL query param
-    const nameInQuery = getFriendNameFromQuery(location.search);
-    if (nameInQuery) {
-      setFriendName(nameInQuery);
-      localStorage.setItem(FRIEND_NAME_KEY, nameInQuery);
-      return;
+    if (location.pathname === "/video") {
+      // On video page, prefer ?name= in URL, fallback to localStorage
+      const nameInQuery = getFriendNameFromQuery(location.search);
+      if (nameInQuery && nameInQuery.trim().length > 0) {
+        setFriendName(nameInQuery);
+        // Persist to localStorage for form prefill later
+        localStorage.setItem(FRIEND_NAME_KEY, nameInQuery);
+      } else {
+        // No name in query - fallback to storage (but still require for video page)
+        const stored = localStorage.getItem(FRIEND_NAME_KEY);
+        setFriendName(stored);
+      }
+    } else if (location.pathname === "/") {
+      // On landing page (always), just load from localStorage to prefill input, don't redirect.
+      const stored = localStorage.getItem(FRIEND_NAME_KEY);
+      setFriendName(stored);
     }
-    // 2. Fallback to localStorage
-    const storedName = localStorage.getItem(FRIEND_NAME_KEY);
-    if (storedName) {
-      setFriendName(storedName);
-    }
-  }, [location]);
+  }, [location.pathname, location.search]);
 
-  // Handler for name form submission
+  // Name input submission (from Page 1): trigger navigation to /video with query
   const handleSubmitFriendName = (newName: string) => {
     setFriendName(newName);
     localStorage.setItem(FRIEND_NAME_KEY, newName);
@@ -54,6 +63,7 @@ const App: React.FC = () => {
         path="/video"
         element={
           <VideoPage
+            // Always require a name for video; 'Friend' fallback is a last resort
             friendName={
               getFriendNameFromQuery(location.search) ||
               friendName ||
