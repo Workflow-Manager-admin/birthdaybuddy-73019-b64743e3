@@ -1,0 +1,34 @@
+/* Tailwind Preflight will apply if Tailwind is set up, otherwise these will still apply for fallback basic styles */
+/* Festive fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+body, .font-festive {
+  font-family: 'Quicksand', 'Comic Sans MS', cursive, sans-serif;
+}
+
+.bg-festive {
+  background: linear-gradient(120deg, #fbbf24 10%, #f472b6 90%);
+}
+
+/* Balloon Animation */
+.balloon-animation {
+  animation: floatballoon 5.5s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+@keyframes floatballoon {
+  0% { transform: translateY(70px) scale(0.91);}
+  30%{ transform: translateY(-8px) scale(1);}  
+  57%{ transform: translateY(-80px) scale(1.04);}
+  100%{ transform: translateY(70px) scale(0.91);}
+}
+/* Slightly stagger each balloon */
+.balloon-0 { animation-delay: 0.08s; }
+.balloon-1 { animation-delay: 0.33s; }
+.balloon-2 { animation-delay: 0.16s; }
+.balloon-3 { animation-delay: 0.41s; }
+.balloon-4 { animation-delay: 0s; }
+
+input[type="text"]::-webkit-input-placeholder { color: #d946ef88; }
+input[type="text"]::-moz-placeholder { color: #d946ef88; }
+input[type="text"]:-ms-input-placeholder { color: #d946ef88; }
+input[type="text"]::placeholder { color: #d946ef88; }
