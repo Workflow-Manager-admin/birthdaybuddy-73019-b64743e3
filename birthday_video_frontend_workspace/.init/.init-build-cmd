@@ -1,0 +1,4 @@
+{
+    "command": "npm install && npm run build",
+    "working_directory": "/home/kavia/workspace/code-generation/birthdaybuddy-73019-b64743e3/birthday_video_frontend_workspace/birthday_video_frontend"
+}

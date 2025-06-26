@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Birthday Buddy - Video Greeting</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Festive + readable font -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Chewy&display=swap" rel="stylesheet">
+  </head>
+  <body style="margin:0;padding:0;">
+    <div id="root"></div>
+    <!-- Tailwind from CDN for dev; should be built-in for prod -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#f472b6",
+              secondary: "#818cf8",
+              accent: "#fbbf24"
+            }
+          }
+        }
+      }
+    </script>
+    <script type="module" src="./src/main.tsx"></script>
+  </body>
+</html>
